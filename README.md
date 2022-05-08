@@ -48,3 +48,20 @@ API KEYs are a way the backend has to identify who is making the requests.
 
 - Authentication: regarding ID
 - Authorization: regarding access and permissions
+
+## HTTP Methods
+
+- HTTP: Hyper Text Transfer Protocol
+
+HTTP methods is a way that Frontend say to backend what kind of request is sending.
+
+A CRUD is:
+
+- POST: **C**reate
+- GET: **R**ead
+- PUT / PATCH: **U**pdate
+  - PUT: Edit all info
+  - PATCH Edit a chunk of the info
+- DELETE: **E**rase
+
+### GET: Read

@@ -8,11 +8,37 @@
   </head>
   <body>
     <h1>Consuming a API REST</h1>
-    <button onclick="reload()">Next Cat</button>
-    <br />
-    <img id="img1" alt="image" width="150" />
-    <img id="img2" alt="image" width="150" />
-    <img id="img3" alt="image" width="150" />
+    <hr />
+    <span id="error"></span>
+    <section id="randomCats">
+      <h2>Random Cats</h2>
+      <hr />
+      <button onclick="loadRandomCats()">Next Cats</button>
+      <br />
+      <article>
+        <img id="img1" alt="image" width="150" />
+        <button id="btn1" onclick="addFavoriteCat()">
+          Save like favorite Cat
+        </button>
+      </article>
+      <article>
+        <img id="img2" alt="image" width="150" />
+        <button id="btn1" onclick="addFavoriteCat()">
+          Save like favorite Cat
+        </button>
+      </article>
+    </section>
+    <section id="favoritesCats">
+      <h2>Favorites Cats</h2>
+      <hr />
+      <article>
+        <img id="img3" alt="image" width="150" />
+        <button>Delete Cat</button>
+      </article>
+    </section>
+    <section id="uploadCats">
+      <img id="img1" alt="image" width="150" />
+    </section>
     <script src="./index.js"></script>
   </body>
 </html>
