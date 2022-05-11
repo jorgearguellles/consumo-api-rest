@@ -1,6 +1,6 @@
 const API_KEY = '6ca6d996-2865-4211-a021-fd4e7a0aaeed'
 const API_URL_RANDOM = `https://api.thecatapi.com/v1/images/search?limit=2&api_key=${API_KEY}`;
-const API_URL_FAVORITES = `https://api.thecatapi.com/v1/favourites?limit=2&api_key=${API_KEY}`;
+const API_URL_FAVORITES = `https://api.thecatapi.com/v1/favourites?api_key=${API_KEY}`;
 
 const spanError = document.getElementById('error')
 
@@ -23,32 +23,40 @@ const loadFavoritesCats = async () => {
   const res = await fetch(API_URL_FAVORITES),
         data = await res.json();
 
-  console.log(data)
   if( res.status !== 200 ){
     spanError.innerHTML = 'Error happened:' + res.status + data.message; 
-  } else { 
-    
+  } else {
+    data.forEach(cat => { 
+      const section = document.getElementById('favoritesCats')
+      const article = document.createElement('article')
+      const img = document.createElement('img')
+      const btn = document.createElement('button')
+      const btnText = document.createTextNode('Delete cat form Favorite section')
+      
+      btn.appendChild(btnText)
+      img.src = cat.image.src
+    })
   }
+  console.log('Favorites',data)
+
 };
 
-const addFavoriteCat = async () => {
+const saveFavoriteCats = async () => {
   const res = await fetch(API_URL_FAVORITES,{
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      image_id: 12,
+      image_id: '12',
     }),
   })
   const data = await res.json();
 
   if( res.status !== 200 ){
     spanError.innerHTML = 'Error happened:' + res.status + data.message; 
-  } else { 
-    
   }
-  console.log(data)
+  console.log({data})
 };
 
 loadRandomCats();
