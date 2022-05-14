@@ -1,6 +1,7 @@
 const API_KEY = '6ca6d996-2865-4211-a021-fd4e7a0aaeed'
 const API_URL_RANDOM = `https://api.thecatapi.com/v1/images/search?limit=2&api_key=${API_KEY}`;
 const API_URL_FAVORITES = `https://api.thecatapi.com/v1/favourites?api_key=${API_KEY}`;
+const API_URL_DELETE_FAVORITE = (id) => `https://api.thecatapi.com/v1/favourites/${id}?api_key=${API_KEY}`;
 
 const spanError = document.getElementById('error')
 
@@ -11,6 +12,7 @@ const loadRandomCats = async () => {
   if( res.status !== 200 ){
     spanError.innerHTML = 'Error happened:' + res.status + res.message; 
   } else { 
+    console.log('Random cats loaded')
     const img1 = document.getElementById('img1'),
     img2 = document.getElementById('img2'),
     btn1 = document.getElementById('btn1'),
@@ -31,8 +33,17 @@ const loadFavoritesCats = async () => {
   if( res.status !== 200 ){
     spanError.innerHTML = 'Error happened:' + res.status + data.message; 
   } else {
+    const section = document.getElementById('favoritesCats')
+
+    section.innerHTML = ''
+    const h2 = document.createElement('h2')
+    const h2Text = document.createTextNode('Favorites Cats');
+    h2.appendChild(h2Text);
+    const hr = document.createElement('hr');
+    section.appendChild(h2)
+    section.appendChild(hr)
+    
     data.forEach(cat => { 
-      const section = document.getElementById('favoritesCats')
       const article = document.createElement('article')
       const img = document.createElement('img')
       const btn = document.createElement('button')
@@ -41,7 +52,7 @@ const loadFavoritesCats = async () => {
       btn.appendChild(btnText)
       img.src = cat.image.url
       img.width = 150
-
+      btn.onclick = () => deleteFavoriteCat(cat.id)
       section.appendChild(img);
       section.appendChild(btn);
       section.appendChild(article);
@@ -63,8 +74,22 @@ const saveFavoriteCat = async (id) => {
 
   if( res.status !== 200 ){
     spanError.innerHTML = 'Error happened:' + res.status + data.message; 
+  } else {
+    console.log('Random cat added on Favorites')
+    loadFavoritesCats();
   }
-  console.log({data})
+};
+
+const deleteFavoriteCat = async (id) => {
+  const res = await fetch( API_URL_DELETE_FAVORITE(id), { method: 'DELETE' } )
+  const data = await res.json();
+
+  if( res.status !== 200 ){
+    spanError.innerHTML = 'Error happened:' + res.status + data.message; 
+  } else{
+    console.log('Favorite cat deleted from Favorites')
+    loadFavoritesCats();
+  }
 };
 
 loadRandomCats();
