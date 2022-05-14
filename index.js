@@ -12,10 +12,15 @@ const loadRandomCats = async () => {
     spanError.innerHTML = 'Error happened:' + res.status + res.message; 
   } else { 
     const img1 = document.getElementById('img1'),
-    img2 = document.getElementById('img2');
+    img2 = document.getElementById('img2'),
+    btn1 = document.getElementById('btn1'),
+    btn2 = document.getElementById('btn2');
     
     img1.src = data[0].url;
     img2.src = data[1].url;
+
+    btn1.onclick = ()=>{saveFavoriteCat(data[0].id)};
+    btn2.onclick = ()=>{saveFavoriteCat(data[1].id)};
   }
 };
 
@@ -34,21 +39,24 @@ const loadFavoritesCats = async () => {
       const btnText = document.createTextNode('Delete cat form Favorite section')
       
       btn.appendChild(btnText)
-      img.src = cat.image.src
+      img.src = cat.image.url
+      img.width = 150
+
+      section.appendChild(img);
+      section.appendChild(btn);
+      section.appendChild(article);
     })
   }
-  console.log('Favorites',data)
-
 };
 
-const saveFavoriteCats = async () => {
+const saveFavoriteCat = async (id) => {
   const res = await fetch(API_URL_FAVORITES,{
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      image_id: '12',
+      image_id: id,
     }),
   })
   const data = await res.json();
