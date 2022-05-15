@@ -24,10 +24,17 @@
         <button id="btn2">Save like favorite Cat</button>
       </article>
     </section>
-    <section id="favoritesCats"></section>
-    <section id="uploadCats">
-      <img id="img1" alt="image" width="150" />
+    <section id="uploadingCat">
+      <h2>Update your cat!</h2>
+      <hr />
+      <form id="uploadingForm">
+        <input id="file" type="file" name="file" />
+        <button type="button" onclick="uploadCatPhoto()">
+          Upload cat photo
+        </button>
+      </form>
     </section>
+    <section id="favoritesCats"></section>
     <script src="./index.js"></script>
   </body>
 </html>
